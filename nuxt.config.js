@@ -75,7 +75,8 @@ export default {
   target: 'static',
 
   plugins: [
-    { src: '~/plugins/main.js'}
+    { src: '~/plugins/main.js' },
+    { src: '~/plugins/v-scroll-lock.js' }
   ],
 
   components: true,
