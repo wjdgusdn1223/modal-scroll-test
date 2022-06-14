@@ -71,4 +71,10 @@ export default {
   },
 
   target: 'static',
+
+  plugins: [
+    { src: '~/plugins/main.js'}
+  ],
+
+  components: true
 }
