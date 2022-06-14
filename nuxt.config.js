@@ -21,7 +21,9 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  css: [],
+  css: [
+    'normalize.css'
+  ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -76,5 +78,5 @@ export default {
     { src: '~/plugins/main.js'}
   ],
 
-  components: true
+  components: true,
 }

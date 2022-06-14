@@ -25,54 +25,8 @@
   <div class="mw">
     <div class="mb">
         <div class="mi">
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
-            a</br>
+            <div v-for="i in 15" :key="i" class="block">
+            </div>
         </div>
     </div>
   </div>
@@ -99,12 +53,21 @@
     height: auto;
 }
 .mi{
-    width: 100%;
+    width: auto;
     height: auto;
     max-height: calc(100vh - 300px);
-    padding: 40px 20px;
+    padding: 20px 40px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     position: relative;
+}
+.mi::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+.block{
+    width: 100%;
+    height: 100px;
+    margin-bottom: 10px;
+    background-color: green;
 }
 </style>
