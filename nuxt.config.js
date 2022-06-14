@@ -69,4 +69,6 @@ export default {
   generate: {
     dir: 'docs'
   },
+
+  target: 'static',
 }
