@@ -97,12 +97,11 @@
 }
 .mb{
     height: auto;
-    max-height: calc(100vh - 56px);
 }
 .mi{
     width: 100%;
     height: auto;
-    max-height: calc(100vh - 56px);
+    max-height: calc(100vh - 300px);
     padding: 40px 20px;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
