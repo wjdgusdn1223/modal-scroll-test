@@ -21,7 +21,6 @@
     :adaptive="true"
     :reset="true"
     :clickToClose="false"
-    @onOpened="onOpened"
   >
   <div class="mw">
     <div class="mb">
@@ -73,7 +72,6 @@ export default {
     max-height: calc(100vh - 300px);
     padding: 20px 40px;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     position: relative;
 }
 .mi::-webkit-scrollbar {
