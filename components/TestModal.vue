@@ -39,7 +39,7 @@ import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 export default {
   mounted() {
     const modalArea = this.$refs.modalArea
-    disableBodyScroll(modalArea, { allowTouchMove: () => true })
+    disableBodyScroll(modalArea)
   },
   beforeDestory() {
     clearAllBodyScrollLocks()
@@ -72,7 +72,7 @@ export default {
     max-height: calc(100vh - 300px);
     padding: 20px 40px;
     overflow-y: auto;
-    -webkit-overflow-scrolling: auto;
+    -webkit-overflow-scrolling: touch;
     position: relative;
 }
 .mi::-webkit-scrollbar {
