@@ -39,7 +39,7 @@ import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 export default {
   mounted() {
     const modalArea = this.$refs.modalArea
-    disableBodyScroll(modalArea)
+    disableBodyScroll(modalArea, { allowTouchMove: () => true })
   },
   beforeDestory() {
     clearAllBodyScrollLocks()
