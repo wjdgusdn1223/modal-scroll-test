@@ -21,6 +21,7 @@
     :adaptive="true"
     :reset="true"
     :clickToClose="false"
+    @onOpened="onOpened"
   >
   <div class="mw">
     <div class="mb">
@@ -34,12 +35,12 @@
 </template>
 
 <script>
-import { clearAllBodyScrollLocks } from 'body-scroll-lock'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 
 export default {
   mounted() {
-    // const modalArea = this.$refs.modalArea
-    // disableBodyScroll(modalArea)
+    const modalArea = this.$refs.modalArea
+    disableBodyScroll(modalArea)
   },
   beforeDestory() {
     clearAllBodyScrollLocks()
