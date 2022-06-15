@@ -1,6 +1,6 @@
 <template>
   <modal
-    v-scroll-lock="true"
+    ref="modalArea"
     name="testModal"
     styles="
     transition: 0.4s ease;
@@ -32,6 +32,20 @@
   </div>
   </modal>
 </template>
+
+<script>
+import { clearAllBodyScrollLocks } from 'body-scroll-lock'
+
+export default {
+  mounted() {
+    // const modalArea = this.$refs.modalArea
+    // disableBodyScroll(modalArea)
+  },
+  beforeDestory() {
+    clearAllBodyScrollLocks()
+  },
+}
+</script>
 
 <style scoped>
 .mw{
