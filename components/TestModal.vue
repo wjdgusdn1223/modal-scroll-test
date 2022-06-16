@@ -1,7 +1,6 @@
 <template>
   <modal
     name="testModal"
-    ref="modalArea"
     styles="
     transition: 0.4s ease;
     visibility: visible;
@@ -21,6 +20,8 @@
     :adaptive="true"
     :reset="true"
     :clickToClose="false"
+    v-on:opened="opened"
+    v-on:closed="closed"
   >
   <div class="mw">
     <div class="mb">
@@ -38,24 +39,18 @@
 import { lock, clearBodyLocks } from 'tua-body-scroll-lock'
 
 export default {
-  props: ['isOpen'],
-  watch: {
-    isOpen(newVal, oldVal) {
-      if(newVal){
-        const modalArea = this.$refs.modalArea
-        // const mi = document.getElementById('mi')
-        console.log(modalArea)
-        lock(modalArea)
-      } else {
-        clearBodyLocks()
-      }
-    }
-  },
   methods: {
     closeThis() {
       this.$emit('closeModal')
+    },
+    opened() {
+      const mi = document.querySelector('.mi')
+      lock(mi)
+    },
+    closed(){
+      clearBodyLocks()
     }
-  }
+  },
 }
 </script>
 
