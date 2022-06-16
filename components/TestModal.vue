@@ -46,6 +46,7 @@ export default {
     opened() {
       const mi = document.querySelector('.mi')
       lock(mi)
+      document.body.style.height = '100%'
     },
     closed(){
       clearBodyLocks()
