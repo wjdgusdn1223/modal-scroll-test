@@ -1,6 +1,5 @@
 <template>
   <modal
-    ref="modalArea"
     name="testModal"
     styles="
     transition: 0.4s ease;
@@ -34,15 +33,15 @@
 </template>
 
 <script>
-import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import { lock, clearBodyLocks } from 'tua-body-scroll-lock'
 
 export default {
   mounted() {
-    const modalArea = this.$refs.modalArea
-    disableBodyScroll(modalArea, { allowTouchMove: () => true })
+    const mi = document.querySelector('.mi')
+    lock(mi)
   },
   beforeDestory() {
-    clearAllBodyScrollLocks()
+    clearBodyLocks()
   },
 }
 </script>
