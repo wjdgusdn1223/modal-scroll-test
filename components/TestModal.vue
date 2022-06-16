@@ -1,6 +1,7 @@
 <template>
   <modal
     name="testModal"
+    ref="modalArea"
     styles="
     transition: 0.4s ease;
     visibility: visible;
@@ -23,9 +24,10 @@
   >
   <div class="mw">
     <div class="mb">
-        <div class="mi">
+        <div class="mi" id="mi">
             <div v-for="i in 15" :key="i" class="block">
             </div>
+            <a v-on:click="closeThis">close</a>
         </div>
     </div>
   </div>
@@ -36,13 +38,24 @@
 import { lock, clearBodyLocks } from 'tua-body-scroll-lock'
 
 export default {
-  mounted() {
-    const mi = document.querySelector('.mi')
-    lock(mi)
+  props: ['isOpen'],
+  watch: {
+    isOpen(newVal, oldVal) {
+      if(newVal){
+        const modalArea = this.$refs.modalArea
+        // const mi = document.getElementById('mi')
+        console.log(modalArea)
+        lock(modalArea)
+      } else {
+        clearBodyLocks()
+      }
+    }
   },
-  beforeDestory() {
-    clearBodyLocks()
-  },
+  methods: {
+    closeThis() {
+      this.$emit('closeModal')
+    }
+  }
 }
 </script>
 

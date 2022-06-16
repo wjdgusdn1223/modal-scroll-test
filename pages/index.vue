@@ -2,7 +2,7 @@
 <div>
 <button @click="show">クリックする</button>
 
-   <TestModal>
+   <TestModal :isOpen="isOpen" v-on:closeModal="hide">
       <p>モーダルウィンドウで表示されるコンテンツ</p>
    </TestModal>
   <v-row justify="center" align="center">
@@ -90,11 +90,18 @@
 <script>
 export default {
   name: 'IndexPage',
+  data () {
+    return {
+      isOpen: false
+    }
+  },
   methods: {
     show() {
       this.$modal.show("testModal");
+      this.isOpen = true;
     },
     hide() {
+      this.isOpen = false;
       this.$modal.hide("testModal");
     }
   }
