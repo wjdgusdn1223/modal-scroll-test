@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { lock, clearBodyLocks } from 'tua-body-scroll-lock'
+import { disableBodyScroll , clearAllBodyScrollLocks  } from 'body-scroll-lock'
 
 export default {
   methods: {
@@ -45,10 +45,10 @@ export default {
     },
     opened() {
       const mi = document.querySelector('.mi')
-      lock(mi)
+      disableBodyScroll(mi)
     },
     closed(){
-      clearBodyLocks()
+      clearAllBodyScrollLocks()
     }
   },
 }
