@@ -27,7 +27,7 @@
     <div class="mb">
         <div class="mi" id="mi">
             <div class="table-scroll">
-                <div class="table-scroll-inner">
+                <div class="table-scroll-inner" id="tsi">
                     <div class="table">
                     </div>
                 </div>
@@ -55,8 +55,9 @@ export default {
       this.$emit('closeModal')
     },
     opened() {
-      const mi = document.querySelector('.mi')
-      lock(mi)
+      const mi = document.querySelector('#mi')
+      const tsi = document.querySelector('#tsi')
+      lock([mi, tsi])
       this.top = Object.assign(document.body.style.top)
       document.body.style.height = '100%'
       document.body.style.top = 0
