@@ -26,10 +26,8 @@
   <div class="mw">
     <div class="mb">
         <div class="mi" id="mi">
-            <div class="table-scroll" id="ts">
-                <div class="table-scroll-inner" id="tsi">
-                    <div class="table">
-                    </div>
+            <div class="table-scroll-inner" id="tsi">
+                <div class="table">
                 </div>
             </div>
             <div v-for="i in 15" :key="i" class="block">
@@ -56,9 +54,8 @@ export default {
     },
     opened() {
       const mi = document.querySelector('#mi')
-      const ts = document.querySelector('#ts')
       const tsi = document.querySelector('#tsi')
-      lock([mi, ts, tsi])
+      lock([mi, tsi])
       this.top = Object.assign(document.body.style.top)
       document.body.style.height = '100%'
       document.body.style.top = 0
@@ -110,11 +107,8 @@ export default {
     margin-bottom: 10px;
     background-color: green;
 }
-.table-scroll{
-  width: 100%;
-  position: relative;
-}
 .table-scroll-inner{
+  width: 100%;
   display: block;
   overflow-x: scroll;
   overflow-y: hidden;
