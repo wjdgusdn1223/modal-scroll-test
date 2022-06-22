@@ -62,16 +62,20 @@ export default {
       tsi.onscroll = function(e){
         this.touchDelay = 0
       }
-      tsi.onpointerdown = function(e){
+      tsi.ontouchstart = function(e){
         console.log("bbb")
       }
-      tsi.onpointermove = function(e){
+      tsi.ontouchmove = function(e){
         this.touchDelay = this.touchDelay + 1
         if(this.touchDelay > 15 && !this.isYScroll){
           unlock(tsi)
         }
       }
-      tsi.onpointerup = function(e){
+      tsi.ontouchend = function(e){
+        this.touchDelay = 0
+        lock(tsi)
+      }
+      tsi.ontouchcancel = function(e){
         this.touchDelay = 0
         lock(tsi)
       }
