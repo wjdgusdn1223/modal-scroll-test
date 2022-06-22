@@ -26,6 +26,12 @@
   <div class="mw">
     <div class="mb">
         <div class="mi" id="mi">
+            <div class="table-scroll">
+                <div class="table-scroll-inner">
+                    <div class="table">
+                    </div>
+                </div>
+            </div>
             <div v-for="i in 15" :key="i" class="block">
             </div>
             <a v-on:click="closeThis">close</a>
@@ -39,6 +45,11 @@
 import { lock, clearBodyLocks } from 'tua-body-scroll-lock'
 
 export default {
+  data () {
+    return {
+      top: 0
+    }
+  },
   methods: {
     closeThis() {
       this.$emit('closeModal')
@@ -46,7 +57,11 @@ export default {
     opened() {
       const mi = document.querySelector('.mi')
       lock(mi)
+      this.top = Object.assign(document.body.style.top)
       document.body.style.height = '100%'
+      document.body.style.top = 0
+      console.log(this.top)
+      document.body.scrollTo(0, parseInt(-this.top))
     },
     closed(){
       clearBodyLocks()
@@ -91,5 +106,20 @@ export default {
     height: 100px;
     margin-bottom: 10px;
     background-color: green;
+}
+.table{
+  width: 100%;
+  position: relative;
+}
+.table-scroll-inner{
+  display: block;
+  overflow-x: scroll;
+}
+.table{
+  width: 700px;
+  height: 300px;
+  min-width: max-content;
+  background-color: white;
+  border: red solid 1px
 }
 </style>
