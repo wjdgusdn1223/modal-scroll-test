@@ -40,12 +40,16 @@
 </template>
 
 <script>
-import { lock, clearBodyLocks } from 'tua-body-scroll-lock'
+import { lock, unlock, clearBodyLocks } from 'tua-body-scroll-lock'
 
 export default {
   data () {
     return {
-      top: 0
+      top: 0,
+      isTouch: false,
+      isScroll: false,
+      isYScroll: false,
+      touchDelay: 0
     }
   },
   methods: {
@@ -55,12 +59,23 @@ export default {
     opened() {
       const mi = document.querySelector('#mi')
       const tsi = document.querySelector('#tsi')
+      tsi.onscroll = function(e){
+        this.touchDelay = 0
+      }
+      tsi.onpointerdown = function(e){
+        console.log("bbb")
+      }
+      tsi.onpointermove = function(e){
+        this.touchDelay = this.touchDelay + 1
+        if(this.touchDelay > 15 && !this.isYScroll){
+          unlock(tsi)
+        }
+      }
+      tsi.onpointerup = function(e){
+        this.touchDelay = 0
+        lock(tsi)
+      }
       lock([mi, tsi])
-      this.top = Object.assign(document.body.style.top)
-      document.body.style.height = '100%'
-      document.body.style.top = 0
-      console.log(this.top)
-      document.body.scrollTo(0, parseInt(-this.top))
     },
     closed(){
       clearBodyLocks()
@@ -94,7 +109,6 @@ export default {
     max-height: calc(100vh - 300px);
     padding: 20px 40px;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     position: relative;
     z-index: 9999;
 }
@@ -110,10 +124,9 @@ export default {
 .table-scroll-inner{
   width: 100%;
   display: block;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow-x: auto;
   position: relative;
-  -webkit-transform: translateZ(0);
+  touch-action: revert;
 }
 .table{
   width: 700px;
