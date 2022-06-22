@@ -26,7 +26,7 @@
   <div class="mw">
     <div class="mb">
         <div class="mi" id="mi">
-            <div class="table-scroll">
+            <div class="table-scroll" id="ts">
                 <div class="table-scroll-inner" id="tsi">
                     <div class="table">
                     </div>
@@ -56,8 +56,9 @@ export default {
     },
     opened() {
       const mi = document.querySelector('#mi')
+      const ts = document.querySelector('#ts')
       const tsi = document.querySelector('#tsi')
-      lock([mi, tsi])
+      lock([mi, ts, tsi])
       this.top = Object.assign(document.body.style.top)
       document.body.style.height = '100%'
       document.body.style.top = 0
@@ -98,6 +99,7 @@ export default {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     position: relative;
+    z-index: 9999;
 }
 .mi::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera*/
@@ -108,13 +110,15 @@ export default {
     margin-bottom: 10px;
     background-color: green;
 }
-.table{
+.table-scroll{
   width: 100%;
   position: relative;
 }
 .table-scroll-inner{
   display: block;
   overflow-x: scroll;
+  overflow-y: hidden;
+  position: relative;
   -webkit-transform: translateZ(0);
 }
 .table{
