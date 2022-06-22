@@ -115,6 +115,7 @@ export default {
 .table-scroll-inner{
   display: block;
   overflow-x: scroll;
+  -webkit-transform: translateZ(0);
 }
 .table{
   width: 700px;
