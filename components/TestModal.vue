@@ -26,8 +26,10 @@
   <div class="mw">
     <div class="mb">
         <div class="mi" id="mi">
-            <div class="table-scroll-inner" id="tsi">
-                <div class="table">
+            <div class="table-scroll">
+                <div class="table-scroll-inner" id="tsi">
+                    <div class="table">
+                    </div>
                 </div>
             </div>
             <div v-for="i in 15" :key="i" class="block">
@@ -40,8 +42,8 @@
 </template>
 
 <script>
-import { lock, unlock, clearBodyLocks } from 'tua-body-scroll-lock'
-
+// import { lock, unlock, clearBodyLocks } from 'tua-body-scroll-lock'
+import { disableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 export default {
   data () {
     return {
@@ -58,31 +60,13 @@ export default {
     },
     opened() {
       const mi = document.querySelector('#mi')
-      const tsi = document.querySelector('#tsi')
-      tsi.onscroll = function(e){
-        this.touchDelay = 0
-      }
-      tsi.ontouchstart = function(e){
-        console.log("bbb")
-      }
-      tsi.ontouchmove = function(e){
-        this.touchDelay = this.touchDelay + 1
-        if(this.touchDelay > 15 && !this.isYScroll){
-          unlock(tsi)
-        }
-      }
-      tsi.ontouchend = function(e){
-        this.touchDelay = 0
-        lock(tsi)
-      }
-      tsi.ontouchcancel = function(e){
-        this.touchDelay = 0
-        lock(tsi)
-      }
-      lock([mi, tsi])
+      // const tsi = document.querySelector('#tsi')
+      
+      disableBodyScroll(mi, { allowTouchMove: el => el.id === 'tsi' })
+      // disableBodyScroll(tsi, )
     },
     closed(){
-      clearBodyLocks()
+      clearAllBodyScrollLocks()
     }
   },
 }
@@ -125,11 +109,13 @@ export default {
     margin-bottom: 10px;
     background-color: green;
 }
-.table-scroll-inner{
+.table-scroll{
   width: 100%;
+  position: relative;
+}
+.table-scroll-inner{
   display: block;
   overflow-x: auto;
-  position: relative;
   touch-action: revert;
 }
 .table{
