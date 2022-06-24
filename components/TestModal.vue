@@ -60,9 +60,10 @@ export default {
     },
     opened() {
       const mi = document.querySelector('#mi')
-      // const tsi = document.querySelector('#tsi')
+      const tsi = document.querySelector('#tsi')
       
-      disableBodyScroll(mi, { allowTouchMove: el => el.id === 'tsi' })
+      disableBodyScroll(mi, { allowTouchMove: el => el.id === 'mi' })
+      disableBodyScroll(tsi, { allowTouchMove: el => el.id === 'tsi' })
       // disableBodyScroll(tsi, )
     },
     closed(){
