@@ -23,19 +23,20 @@
     v-on:opened="opened"
     v-on:closed="closed"
   >
-  <div class="mw">
-    <div class="mb">
-        <div class="mi" id="mi">
-            <div class="table-scroll">
-                <div class="table-scroll-inner" id="tsi">
-                    <div class="table">
-                    </div>
-                </div>
-            </div>
-            <div v-for="i in 15" :key="i" class="block">
-            </div>
-            <a v-on:click="closeThis">close</a>
+  <div id="displayArea" class="parent">
+    <div class="mw">
+      <div class="mb">
+        <div class="head">title</div>
+        <div id="scroll" class="inner">
+          <transition name="guide"
+            ><div v-if="true" class="guide"
+          /></transition>
+          <div class="image" />
         </div>
+        <div class="close" @click="closeModal">
+          close
+        </div>
+      </div>
     </div>
   </div>
   </modal>
@@ -59,12 +60,20 @@ export default {
       this.$emit('closeModal')
     },
     opened() {
-      const mi = document.querySelector('#mi')
-      const tsi = document.querySelector('#tsi')
+      const scroll = document.querySelector('#scroll')
       
-      disableBodyScroll(mi, { allowTouchMove: el => el.id === 'mi' })
-      disableBodyScroll(tsi, { allowTouchMove: el => el.id === 'tsi' })
-      // disableBodyScroll(tsi, )
+      disableBodyScroll(scroll, { allowTouchMove: el => el.id === 'scroll' })
+
+      const vh = window.innerHeight * 0.01
+
+      document.querySelector("#displayArea").style.setProperty("--vh", `${vh}px`)
+
+      if(window.innerHeight > window.innerWidth) {
+        document.querySelector("#displayArea").style.cssText = ''
+        document.querySelector("#displayArea").style.height = '100%'
+      } else {
+        document.querySelector("#displayArea").style.height = ''
+      }
     },
     closed(){
       clearAllBodyScrollLocks()
@@ -74,11 +83,16 @@ export default {
 </script>
 
 <style scoped>
+.parent {
+  position: relative;
+  width: 100vw;
+  height: calc(var(--vh, 1vh) * 100);
+}
 .mw{
-    width: calc(100% - 40px);
-    max-width: 375px;
+    width: calc(100vw - 40px);
+    max-width: 370px;
     height: auto;
-    max-height: calc(100vh - 200px);
+    max-height: calc(calc(var(--vh, 1vh) * 100) - 32vw);
     background-color: gray;
     border-radius: 10px;
     position: absolute;
@@ -86,44 +100,78 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 10;
-    visibility: visible;
-    opacity: 1;    
+    overflow: hidden;
 }
 .mb{
     height: auto;
 }
-.mi{
+.head {
+  font-size: 16px;
+  line-height: 1.4;
+  padding: 30px 20px;
+  width: auto;
+  background-color: green;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+.close {
+  font-size: 16px;
+  line-height: 1.4;
+  padding: 22px 20px;
+  width: auto;
+  background-color: green;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  left: 0;
+  bottom: 0;
+  transition: opacity 0.3s ease;
+  cursor: poiter;
+  position:sticky
+}
+.inner {
     width: auto;
     height: auto;
-    max-height: calc(100vh - 300px);
-    padding: 20px 40px;
+    max-height: calc(calc(var(--vh, 1vh) * 100) - 400px);
+    padding: 24px 20px;
     overflow-y: auto;
     position: relative;
-    z-index: 9999;
+    @supports (-webkit-touch-callout: none) {
+      touch-action: manipulation;
+    }
 }
-.mi::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera*/
+.guide::before {
+  content: '';
+  width: 200px;
+  height: 115px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% auto;
+  backface-visibility: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  animation-duration: 0.3s;
+  background-image: url('https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png')
 }
-.block{
-    width: 100%;
-    height: 100px;
-    margin-bottom: 10px;
-    background-color: green;
+.guide-leave-active {
+  transition: opacity 0.3s;
 }
-.table-scroll{
+.guide-leave-to {
+  opacity: 0;
+}
+.image {
+  height: 1000px;
   width: 100%;
-  position: relative;
-}
-.table-scroll-inner{
-  display: block;
-  overflow-x: auto;
-  touch-action: revert;
-}
-.table{
-  width: 700px;
-  height: 300px;
-  min-width: max-content;
-  background-color: white;
-  border: red solid 1px
+  background-color: blue;
 }
 </style>
